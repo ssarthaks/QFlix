@@ -1,57 +1,93 @@
-import axios from "axios";
-import { createContext, ReactNode, useEffect, useState } from "react";
+import React, {
+  createContext,
+  useState,
+  useCallback,
+  ReactNode,
+  useEffect,
+} from "react";
+import { Movie, Genre } from "../types/movie";
+import * as tmdb from "../lib/tmdb";
 
-export const MoviesContext = createContext({
-  movies: [] as any[],
-  fetchMovieData: async () => {},
-});
-
-interface MoviesProviderProps {
-  children: ReactNode;
+interface MovieContextType {
+  nowPlaying: Movie[];
+  upcoming: Movie[];
+  topRated: Movie[];
+  genres: Genre[];
+  loading: boolean;
+  error: string | null;
+  fetchInitialData: () => Promise<void>;
+  getMovieById: (id: string) => Promise<Movie | null>;
 }
 
-export const MoviesProvider: React.FC<MoviesProviderProps> = ({ children }) => {
-  const [movies, setMovies] = useState<any[]>([]);
+export const MovieContext = createContext<MovieContextType | undefined>(
+  undefined
+);
 
-  const validMovieIds = [
-    2, 3, 5, 6, 8, 9, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 24, 25,
-    26, 27, 28, 33, 35, 38, 55, 58, 59, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71,
-    73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 85, 86, 87, 88, 89, 90, 91, 92,
-    93, 94, 95, 96, 97, 98, 99, 100,
-  ];
+export const MovieProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
+  const [nowPlaying, setNowPlaying] = useState<Movie[]>([]);
+  const [upcoming, setUpcoming] = useState<Movie[]>([]);
+  const [topRated, setTopRated] = useState<Movie[]>([]);
+  const [genres, setGenres] = useState<Genre[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const fetchMovieData = async () => {
-    const fetchedMovies: any[] = [];
-    for (const id of validMovieIds) {
-      try {
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/movie/${id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${
-                import.meta.env.VITE_TMDB_API_ACCESS_TOKEN
-              }`,
-            },
-          }
-        );
-        fetchedMovies.push(response.data);
-      } catch (error: any) {
-        console.error(
-          `Error fetching movie ID ${id}:`,
-          error.response?.data || error.message
-        );
-      }
+  const fetchInitialData = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const [nowPlayingData, upcomingData, topRatedData, genresData] =
+        await Promise.all([
+          tmdb.getNowPlayingMovies(),
+          tmdb.getUpcomingMovies(),
+          tmdb.getTopRatedMovies(),
+          tmdb.getGenres(),
+        ]);
+
+      setNowPlaying(nowPlayingData.results);
+      setUpcoming(upcomingData.results);
+      setTopRated(topRatedData.results);
+      setGenres(genresData.genres);
+    } catch (error) {
+      setError("Failed to fetch movies");
+      console.error("Error fetching movie data:", error);
+    } finally {
+      setLoading(false);
     }
-    setMovies(fetchedMovies);
-  };
-
-  useEffect(() => {
-    fetchMovieData();
   }, []);
 
+  useEffect(() => {
+    fetchInitialData();
+  }, []);
+
+  const getMovieById = useCallback(
+    async (id: string): Promise<Movie | null> => {
+      try {
+        const movie = await tmdb.getMovieDetails(id);
+        return movie;
+      } catch (error) {
+        console.error("Error fetching movie details:", error);
+        return null;
+      }
+    },
+    []
+  );
+
   return (
-    <MoviesContext.Provider value={{ movies, fetchMovieData }}>
+    <MovieContext.Provider
+      value={{
+        nowPlaying,
+        upcoming,
+        topRated,
+        genres,
+        loading,
+        error,
+        fetchInitialData,
+        getMovieById,
+      }}
+    >
       {children}
-    </MoviesContext.Provider>
+    </MovieContext.Provider>
   );
 };

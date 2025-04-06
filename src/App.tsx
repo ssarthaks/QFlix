@@ -1,14 +1,14 @@
 import { useMovies } from "./context/useMovies";
 
 function App() {
-  const { movies } = useMovies();
+  const { nowPlaying } = useMovies();
 
   return (
     <>
       <h1 className="text-2xl text-center ">Hello World Qflix</h1>
       <div className="movies-list">
-        {movies.length > 0 ? (
-          movies.map((movie, index) => (
+        {nowPlaying.length > 0 ? (
+          nowPlaying.map((movie, index) => (
             <div key={index} className="movie-item">
               <h2>{movie.title}</h2>
               <p>{movie.overview}</p>
