@@ -1,25 +1,32 @@
-import { useMovies } from "./context/useMovies";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import Layout from "./components/Layout/Layout";
+import { Home } from "./pages/Home";
+import Discover from "./pages/Discover";
+import MovieDetails from "./pages/MovieDetails";
 
-function App() {
-  const { nowPlaying } = useMovies();
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="/discover" element={<Discover />} />
+        <Route path="/movie" element={<MovieDetails />} />
+      </Route>
+    </>
+  )
+);
 
+const App = () => {
   return (
     <>
-      <h1 className="text-2xl text-center ">Hello World Qflix</h1>
-      <div className="movies-list">
-        {nowPlaying.length > 0 ? (
-          nowPlaying.map((movie, index) => (
-            <div key={index} className="movie-item">
-              <h2>{movie.title}</h2>
-              <p>{movie.overview}</p>
-            </div>
-          ))
-        ) : (
-          <p>Loading movies...</p>
-        )}
-      </div>
+      <RouterProvider router={router} />
     </>
   );
-}
+};
 
 export default App;

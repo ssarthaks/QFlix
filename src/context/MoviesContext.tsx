@@ -49,6 +49,7 @@ export const MovieProvider: React.FC<{ children: ReactNode }> = ({
       setUpcoming(upcomingData.results);
       setTopRated(topRatedData.results);
       setGenres(genresData.genres);
+      console.log("Movies fetching done");
     } catch (error) {
       setError("Failed to fetch movies");
       console.error("Error fetching movie data:", error);
