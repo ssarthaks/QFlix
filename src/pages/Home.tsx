@@ -2,13 +2,13 @@ import React from "react";
 import { Navbar } from "../components/Navbar";
 import { HeroSection } from "../components/HeroSection";
 import { useMovies } from "../context/useMovies";
+import { MovieSlider } from "../components/MovieSlider";
 
 export const Home: React.FC = () => {
-  const { nowPlaying, loading, error } = useMovies();
+  const { nowPlaying, loading, error, upcoming, topRated } = useMovies();
 
   console.log("Now Playing Movies:", nowPlaying);
-  
-  
+
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center">
@@ -31,6 +31,17 @@ export const Home: React.FC = () => {
       {nowPlaying && nowPlaying.length > 0 && (
         <HeroSection movies={nowPlaying} />
       )}
+      <div className="mx-auto max-w-7xl px-4 py-8">
+        {nowPlaying && nowPlaying.length > 0 && (
+          <MovieSlider title="Now Playing" movies={nowPlaying} />
+        )}
+        {upcoming && upcoming.length > 0 && (
+          <MovieSlider title="Upcoming Movies" movies={upcoming} />
+        )}
+        {topRated && topRated.length > 0 && (
+          <MovieSlider title="Top Rated" movies={topRated} />
+        )}
+      </div>
     </div>
   );
 };

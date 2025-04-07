@@ -10,6 +10,7 @@ export interface Movie {
     tagline?: string;
     vote_count:number;
     genre_ids: number[];
+    genres?: { id: number; name: string }[]; 
     runtime?: number;
   }
   

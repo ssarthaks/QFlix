@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 import { Search, Film, Menu, X, Home, Compass } from "lucide-react";
 
 export const Navbar: React.FC = () => {
@@ -7,9 +7,17 @@ export const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const searchRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
-
+  const [searchParams, setSearchParams] = useSearchParams();
   const isHomePage = location.pathname === "/";
   const isDiscoverPage = location.pathname === "/discover";
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
+    setSearchQuery(query);
+    if (isDiscoverPage) {
+      setSearchParams({ query });
+    }
+  };
 
   return (
     <nav className="fixed left-0 right-0 top-0 z-50 bg-black/95 px-4 py-4 backdrop-blur-sm">
@@ -48,18 +56,16 @@ export const Navbar: React.FC = () => {
           </div>
 
           {isDiscoverPage && (
-            <>
-              <div className="relative" ref={searchRef}>
-                <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search movies..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-64 rounded-full bg-gray-800 py-2 pl-10 pr-4 text-white placeholder-gray-400 transition-all focus:outline-none focus:ring-2 focus:ring-purple-500"
-                />
-              </div>
-            </>
+            <div className="relative" ref={searchRef}>
+              <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search movies..."
+                value={searchQuery}
+                onChange={handleSearchChange}
+                className="w-64 rounded-full bg-gray-800 py-2 pl-10 pr-4 text-white placeholder-gray-400 transition-all focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
           )}
         </div>
 
@@ -85,18 +91,16 @@ export const Navbar: React.FC = () => {
       >
         <div className="flex h-full flex-col p-6">
           {isDiscoverPage && (
-            <>
-              <div className="relative mb-6">
-                <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search movies..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full rounded-full bg-gray-800 py-3 pl-10 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-                />
-              </div>
-            </>
+            <div className="relative mb-6">
+              <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Search movies..."
+                value={searchQuery}
+                onChange={handleSearchChange}
+                className="w-full rounded-full bg-gray-800 py-3 pl-10 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              />
+            </div>
           )}
 
           <div className="flex flex-col space-y-4 text-lg">
