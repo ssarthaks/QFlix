@@ -1,12 +1,12 @@
 const TMDB_API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-const BASE_URL = "https://api.themoviedb.org/3";
-const IMAGE_BASE_URL = "https://image.tmdb.org/t/p";
+const BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
+const IMAGE_BASE_URL = import.meta.env.VITE_TMDB_IMAGE_BASE_URL;
 
 export const getImageUrl = (path: string, size: "w500" | "original" = "w500") =>
   `${IMAGE_BASE_URL}/${size}${path}`;
 
-const fetchMovies = async (endpoint: string, params = "") => {
-  const url = `${BASE_URL}${endpoint}?api_key=${TMDB_API_KEY}&language=en-US${params}`;
+const fetchMovies = async (endpoint: string) => {
+  const url = `${BASE_URL}${endpoint}?api_key=${TMDB_API_KEY}`;
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Failed to fetch: ${url}`);
