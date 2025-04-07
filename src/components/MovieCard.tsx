@@ -1,8 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Star } from 'lucide-react';
-import { Movie } from '../types/movie';
-import { getImageUrl } from '../lib/tmdb';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Star } from "lucide-react";
+import { Movie } from "../types/movie";
+import { getImageUrl } from "../lib/tmdb";
 
 interface MovieCardProps {
   movie: Movie;
@@ -10,7 +10,7 @@ interface MovieCardProps {
 
 export const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   return (
-    <Link 
+    <Link
       to={`/movie/${movie.id}`}
       className="group relative overflow-hidden rounded-lg transition-transform duration-300 hover:scale-105"
     >

@@ -1,4 +1,5 @@
-import { Star } from "lucide-react";
+import { Play, Star } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface Movie {
   id: number;
@@ -8,12 +9,10 @@ interface Movie {
   vote_average: number;
 }
 interface MovieCardPlayProps {
+  movie: Movie;
 
-    movie: Movie;
-  
-    getImageUrl: (path: string, size?: "w500" | "original") => string;
-  
-  }
+  getImageUrl: (path: string, size?: "w500" | "original") => string;
+}
 
 const MovieCardPlay: React.FC<MovieCardPlayProps> = ({
   movie,
@@ -47,11 +46,11 @@ const MovieCardPlay: React.FC<MovieCardPlayProps> = ({
 
       {/* Hover Overlay */}
       <div className="absolute inset-0 flex items-center justify-center bg-black/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <button className="rounded-full bg-purple-600 p-3 transition-transform duration-300 hover:scale-110">
-          <svg className="h-8 w-8 fill-current" viewBox="0 0 24 24">
-            <polygon points="5 3 19 12 5 21 5 3" />
-          </svg>
-        </button>
+        <Link to={`/movie/${movie.id}`}>
+          <button className="flex items-center justify-center rounded-full bg-purple-600 p-4 text-white hover:bg-purple-700">
+            <Play className="h-6 w-6" />
+          </button>
+        </Link>
       </div>
     </div>
   );

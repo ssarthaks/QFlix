@@ -7,7 +7,7 @@ import {
 import Layout from "./components/Layout/Layout";
 import { Home } from "./pages/Home";
 import Discover from "./pages/Discover";
-import MovieDetails from "./pages/MovieDetails";
+import { MovieDetails } from "./components/MovieDetails";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

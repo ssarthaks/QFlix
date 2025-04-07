@@ -16,7 +16,7 @@ interface MovieContextType {
   loading: boolean;
   error: string | null;
   fetchInitialData: () => Promise<void>;
-  getMovieById: (id: string) => Promise<Movie | null>;
+  getMovieById: (id: number) => Promise<Movie | null>;
 }
 
 export const MovieContext = createContext<MovieContextType | undefined>(
@@ -60,10 +60,11 @@ export const MovieProvider: React.FC<{ children: ReactNode }> = ({
 
   useEffect(() => {
     fetchInitialData();
+    getMovieById(2);
   }, []);
 
   const getMovieById = useCallback(
-    async (id: string): Promise<Movie | null> => {
+    async (id: number): Promise<Movie | null> => {
       try {
         const movie = await tmdb.getMovieDetails(id);
         return movie;

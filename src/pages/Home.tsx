@@ -7,8 +7,6 @@ import { MovieSlider } from "../components/MovieSlider";
 export const Home: React.FC = () => {
   const { nowPlaying, loading, error, upcoming, topRated } = useMovies();
 
-  console.log("Now Playing Movies:", nowPlaying);
-
   if (loading) {
     return (
       <div className="flex h-screen items-center justify-center">
