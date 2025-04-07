@@ -60,17 +60,19 @@ export const MovieProvider: React.FC<{ children: ReactNode }> = ({
 
   useEffect(() => {
     fetchInitialData();
-    getMovieById(2);
   }, []);
 
   const getMovieById = useCallback(
     async (id: number): Promise<Movie | null> => {
+      setLoading(true);
       try {
         const movie = await tmdb.getMovieDetails(id);
         return movie;
       } catch (error) {
         console.error("Error fetching movie details:", error);
         return null;
+      } finally{
+        setLoading(false);
       }
     },
     []

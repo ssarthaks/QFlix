@@ -7,7 +7,7 @@ export const Navbar: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const searchRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
   const isHomePage = location.pathname === "/";
   const isDiscoverPage = location.pathname === "/discover";
 
