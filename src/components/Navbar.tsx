@@ -20,7 +20,7 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="fixed left-0 right-0 top-0 z-50 bg-black/95 px-4 py-2 backdrop-blur-sm">
+    <nav className="fixed left-0 right-0 top-0 z-50 bg-black/95 px-4 py-2 md:py-3 backdrop-blur-sm">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <Link
           to="/"

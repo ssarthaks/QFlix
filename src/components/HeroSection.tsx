@@ -62,7 +62,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ movies }) => {
               <img
                 src={getImageUrl(movie.backdrop_path, "original")}
                 alt=""
-                className="h-full w-full object-cover mt-16"
+                className="h-full w-full object-cover md:mt-14 mt-14 object-center"
                 onLoad={() => setIsLoading(false)}
               />
             </div>
@@ -82,7 +82,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ movies }) => {
             {currentMovie?.overview}
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <Link  to={`/movie/${currentMovie.id}`}>
+            <Link to={`/movie/${currentMovie.id}`}>
               <button
                 className="flex items-center gap-2 rounded-lg bg-purple-600 md:px-6 md:py-3 px-4 py-2 font-semibold text-white transition-all hover:bg-purple-700 hover:scale-105 text-sm md:text-base"
                 aria-label="Watch now"

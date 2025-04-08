@@ -1,5 +1,4 @@
 import React from "react";
-import { Navbar } from "../components/Navbar";
 import { HeroSection } from "../components/HeroSection";
 import { useMovies } from "../context/useMovies";
 import { MovieSlider } from "../components/MovieSlider";
@@ -25,7 +24,6 @@ export const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-900">
-      <Navbar />
       {nowPlaying && nowPlaying.length > 0 && (
         <HeroSection movies={nowPlaying} />
       )}
