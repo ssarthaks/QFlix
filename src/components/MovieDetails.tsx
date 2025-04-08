@@ -70,7 +70,7 @@ export const MovieDetails: React.FC = () => {
             </div>
 
             <div className="w-full md:w-2/3">
-              <h1 className="text-4xl font-bold md:text-5xl">{movie.title}</h1>
+              <h1 className="text-3xl font-bold md:text-4xl">{movie.title}</h1>
 
               <div className="mt-4 flex flex-wrap gap-4 text-gray-300">
                 <div className="flex items-center gap-2">
@@ -89,7 +89,7 @@ export const MovieDetails: React.FC = () => {
                 )}
               </div>
 
-              <p className="mt-6 text-lg leading-relaxed text-gray-300">
+              <p className="mt-6 text-base md:text-lg leading-relaxed text-gray-300">
                 {movie.overview}
               </p>
 

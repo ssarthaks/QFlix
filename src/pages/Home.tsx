@@ -31,13 +31,25 @@ export const Home: React.FC = () => {
       )}
       <div className="mx-auto max-w-7xl px-4 md:py-8">
         {nowPlaying && nowPlaying.length > 0 && (
-          <MovieSlider title="Now Playing" movies={nowPlaying} />
+          <MovieSlider
+            id="now-playing-slider"
+            title="Now Playing"
+            movies={nowPlaying}
+          />
         )}
         {upcoming && upcoming.length > 0 && (
-          <MovieSlider title="Upcoming Movies" movies={upcoming} />
+          <MovieSlider
+            id="upcoming-slider"
+            title="Upcoming Movies"
+            movies={upcoming}
+          />
         )}
         {topRated && topRated.length > 0 && (
-          <MovieSlider title="Top Rated" movies={topRated} />
+          <MovieSlider
+            id="top-rated-slider"
+            title="Top Rated"
+            movies={topRated}
+          />
         )}
       </div>
     </div>

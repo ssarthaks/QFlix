@@ -78,16 +78,24 @@ const Discover = () => {
           <div className="flex flex-col md:flex-col md:justify-between">
             <h1 className="mb-4 text-3xl font-bold md:mb-6">Discover Movies</h1>
             <div className="flex gap-2 items-center justify-center relative">
-              <div className="relative md:hidden w-full">
+                <div className="relative md:hidden w-full">
                 <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
                 <input
                   type="text"
                   placeholder="Search movies..."
                   value={searchQuery}
                   onChange={handleSearchChange}
-                  className="w-full rounded-full bg-gray-800 py-3 pl-10 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full rounded-full bg-gray-800 py-3 pl-10 pr-10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
                 />
-              </div>
+                {searchQuery && (
+                  <button
+                  onClick={() => setSearchParams({ query: "" })}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                  >
+                  <X className="h-5 w-5" />
+                  </button>
+                )}
+                </div>
               <button
                 className="flex items-center justify-center gap-2 rounded-lg bg-purple-600 px-4 py-2 font-medium md:hidden"
                 onClick={() => setIsFilterOpen(!isFilterOpen)}

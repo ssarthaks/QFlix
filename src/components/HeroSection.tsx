@@ -78,16 +78,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ movies }) => {
           <h1 className="text-3xl font-bold md:text-6xl">
             {currentMovie?.title}
           </h1>
-          <p className="mt-4 max-w-2xl text-sm md:text-lg opacity-90">
+          <p className="mt-4 max-w-2xl text-base md:text-lg opacity-90 md:line-clamp-none line-clamp-3">
             {currentMovie?.overview}
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link  to={`/movie/${currentMovie.id}`}>
               <button
-                className="flex items-center gap-2 rounded-lg bg-purple-600 md:px-6 md:py-3 px-4 py-2 font-semibold text-white transition-all hover:bg-purple-700 hover:scale-105"
+                className="flex items-center gap-2 rounded-lg bg-purple-600 md:px-6 md:py-3 px-4 py-2 font-semibold text-white transition-all hover:bg-purple-700 hover:scale-105 text-sm md:text-base"
                 aria-label="Watch now"
               >
-                <Play className="h-5 w-5" />
+                <Play className="md:h-5 md:w-5 w-4 h-4" />
                 Movie Details
               </button>
             </Link>

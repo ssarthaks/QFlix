@@ -20,13 +20,13 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="fixed left-0 right-0 top-0 z-50 bg-black/95 px-4 py-4 backdrop-blur-sm">
+    <nav className="fixed left-0 right-0 top-0 z-50 bg-black/95 px-4 py-2 backdrop-blur-sm">
       <div className="mx-auto flex max-w-7xl items-center justify-between">
         <Link
           to="/"
-          className="flex items-center gap-2 text-2xl font-bold text-white transition-transform hover:scale-105"
+          className="flex items-center gap-2 text-xl md:text-2xl font-bold text-white transition-transform hover:scale-105"
         >
-          <Film className="h-8 w-8 text-purple-500" />
+          <Film className="md:h-8 md:w-8 h-6 w-6 text-purple-500" />
           <span>QFlix</span>
         </Link>
 
@@ -85,7 +85,7 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 top-16 z-40 transform bg-black/95 h-screen backdrop-blur-md transition-transform duration-300 ease-in-out md:hidden ${
+        className={`fixed inset-0 top-14 z-40 transform bg-black/95 h-screen backdrop-blur-md transition-transform duration-300 ease-in-out md:hidden ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
