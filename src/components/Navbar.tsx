@@ -85,24 +85,11 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 top-16 z-40 transform bg-black/95 backdrop-blur-md transition-transform duration-300 ease-in-out md:hidden ${
+        className={`fixed inset-0 top-16 z-40 transform bg-black/95 h-screen backdrop-blur-md transition-transform duration-300 ease-in-out md:hidden ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="flex h-full flex-col p-6">
-          {isDiscoverPage && (
-            <div className="relative mb-6">
-              <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search movies..."
-                value={searchQuery}
-                onChange={handleSearchChange}
-                className="w-full rounded-full bg-gray-800 py-3 pl-10 pr-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
-              />
-            </div>
-          )}
-
           <div className="flex flex-col space-y-4 text-lg">
             <Link
               to="/"
@@ -124,10 +111,6 @@ export const Navbar: React.FC = () => {
               <Compass className="h-5 w-5 text-purple-500" />
               <span>Discover</span>
             </Link>
-          </div>
-
-          <div className="mt-auto border-t border-gray-800 pt-6 text-center text-gray-500">
-            <p>© 2023 QFlix</p>
           </div>
         </div>
       </div>

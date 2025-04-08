@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { Play, ChevronLeft, ChevronRight, Pause } from "lucide-react";
 import type { Movie } from "../types/movie";
 import { getImageUrl } from "../lib/tmdb";
+import { Link } from "react-router-dom";
 
 // Custom classNames utility instead of cn from shadcn
 function classNames(...classes: (string | boolean | undefined)[]) {
@@ -72,41 +73,36 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ movies }) => {
       <div className="absolute inset-0 z-20 bg-gradient-to-t from-black via-black/60 to-transparent" />
 
       {/* Content */}
-      <div className="absolute bottom-0 left-0 right-0 z-30 p-8 text-white md:p-16">
+      <div className="absolute bottom-0 left-0 right-0 z-30 p-8 pb-20 text-white md:p-16">
         <div className="animate-fadeIn">
-          <h1 className="text-4xl font-bold md:text-6xl">
+          <h1 className="text-3xl font-bold md:text-6xl">
             {currentMovie?.title}
           </h1>
-          <p className="mt-4 max-w-2xl text-lg opacity-90">
+          <p className="mt-4 max-w-2xl text-sm md:text-lg opacity-90">
             {currentMovie?.overview}
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <button
-              className="flex items-center gap-2 rounded-lg bg-purple-600 px-6 py-3 font-semibold text-white transition-all hover:bg-purple-700 hover:scale-105"
-              aria-label="Watch now"
-            >
-              <Play className="h-5 w-5" />
-              Watch Now
-            </button>
-
-            <button
-              className="flex items-center gap-2 rounded-lg border border-white/30 bg-black/30 px-6 py-3 font-semibold text-white backdrop-blur-sm transition-all hover:bg-black/50 hover:scale-105"
-              aria-label="Add to watchlist"
-            >
-              Add to Watchlist
-            </button>
+            <Link  to={`/movie/${currentMovie.id}`}>
+              <button
+                className="flex items-center gap-2 rounded-lg bg-purple-600 md:px-6 md:py-3 px-4 py-2 font-semibold text-white transition-all hover:bg-purple-700 hover:scale-105"
+                aria-label="Watch now"
+              >
+                <Play className="h-5 w-5" />
+                Movie Details
+              </button>
+            </Link>
           </div>
         </div>
       </div>
 
       {/* Navigation Controls */}
-      <div className="absolute bottom-8 right-8 z-30 flex items-center gap-4 md:bottom-16 md:right-16">
+      <div className="absolute bottom-20 right-8 z-30 flex items-center gap-4 md:bottom-16 md:right-16">
         <button
           onClick={goToPrevious}
           className="rounded-full bg-black/30 p-2 text-white backdrop-blur-sm transition-all hover:bg-black/50"
           aria-label="Previous movie"
         >
-          <ChevronLeft className="h-6 w-6" />
+          <ChevronLeft className="md:h-6 h-4 md:w-6 w-4" />
         </button>
 
         <button
@@ -115,9 +111,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ movies }) => {
           aria-label={isPaused ? "Resume autoplay" : "Pause autoplay"}
         >
           {isPaused ? (
-            <Play className="h-6 w-6" />
+            <Play className="md:h-6 h-4 md:w-6 w-4" />
           ) : (
-            <Pause className="h-6 w-6" />
+            <Pause className="md:h-6 h-4 md:w-6 w-4" />
           )}
         </button>
 
@@ -126,7 +122,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ movies }) => {
           className="rounded-full bg-black/30 p-2 text-white backdrop-blur-sm transition-all hover:bg-black/50"
           aria-label="Next movie"
         >
-          <ChevronRight className="h-6 w-6" />
+          <ChevronRight className="md:h-6 h-4 md:w-6 w-4" />
         </button>
       </div>
 

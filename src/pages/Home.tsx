@@ -29,7 +29,7 @@ export const Home: React.FC = () => {
       {nowPlaying && nowPlaying.length > 0 && (
         <HeroSection movies={nowPlaying} />
       )}
-      <div className="mx-auto max-w-7xl px-4 py-8">
+      <div className="mx-auto max-w-7xl px-4 md:py-8">
         {nowPlaying && nowPlaying.length > 0 && (
           <MovieSlider title="Now Playing" movies={nowPlaying} />
         )}
