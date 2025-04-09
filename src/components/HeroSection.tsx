@@ -4,7 +4,6 @@ import type { Movie } from "../types/movie";
 import { getImageUrl } from "../lib/tmdb";
 import { Link } from "react-router-dom";
 
-
 function classNames(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -33,7 +32,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ movies }) => {
 
     const interval = setInterval(() => {
       goToNext();
-    }, 6000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [isPaused, goToNext]);
@@ -41,13 +40,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ movies }) => {
   if (!movies.length) return null;
 
   return (
-    <div
-      className="relative min-h-screen w-full overflow-hidden text-primaryText"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      role="region"
-      aria-label="Featured movies carousel"
-    >
+    <div className="relative min-h-screen w-full overflow-hidden text-primaryText">
       {/* Background Images with Crossfade */}
       {movies.map(
         (movie, index) =>
