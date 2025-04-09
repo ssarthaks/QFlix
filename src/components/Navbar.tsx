@@ -63,8 +63,18 @@ export const Navbar: React.FC = () => {
                 placeholder="Search movies..."
                 value={searchQuery}
                 onChange={handleSearchChange}
-                className="w-64 rounded-full bg-gray-800 py-2 pl-10 pr-4 placeholder-description transition-all focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full rounded-full bg-gray-800 py-3 pl-10 pr-10 placeholder-description focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
+              {searchQuery && (
+                <button
+                  onClick={() => {
+                    setSearchParams({ query: "" }), setSearchQuery("");
+                  }}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-description hover:text-primaryText"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              )}
             </div>
           )}
         </div>
