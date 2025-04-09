@@ -14,23 +14,27 @@ export const MovieSlider: React.FC<MovieSliderProps> = ({
   movies,
   id,
 }) => {
-
   const handleSlide = (direction: "prev" | "next") => {
     const slider = document.querySelector(`#${id}`) as HTMLElement;
     if (!slider) return;
 
     const slideWidth = slider.firstElementChild?.clientWidth || 0;
+    const totalWidth = slideWidth * movies.length;
+    const visibleWidth = slider.parentElement?.clientWidth || 0;
+
     const currentTransform = parseFloat(
       getComputedStyle(slider).transform.split(",")[4] || "0"
     );
 
     if (direction === "prev") {
-      slider.style.transform = `translateX(${Math.min(
-        currentTransform + slideWidth,
-        0
-      )}px)`;
+      const newTransform = Math.min(currentTransform + slideWidth, 0);
+      slider.style.transform = `translateX(${newTransform}px)`;
     } else if (direction === "next") {
-      slider.style.transform = `translateX(${currentTransform - slideWidth}px)`;
+      const newTransform = Math.max(
+        currentTransform - slideWidth,
+        -(totalWidth - visibleWidth)
+      );
+      slider.style.transform = `translateX(${newTransform}px)`;
     }
   };
 
@@ -44,28 +48,40 @@ export const MovieSlider: React.FC<MovieSliderProps> = ({
           onTouchStart={(e) => {
             const slider = e.currentTarget;
             slider.dataset.startX = e.touches[0].clientX.toString();
-            slider.dataset.currentTransform = getComputedStyle(slider).transform.split(",")[4] || "0";
+            slider.dataset.currentTransform =
+              getComputedStyle(slider).transform.split(",")[4] || "0";
           }}
           onTouchMove={(e) => {
             const slider = e.currentTarget;
             const startX = parseFloat(slider.dataset.startX || "0");
-            const currentTransform = parseFloat(slider.dataset.currentTransform || "0");
+            const currentTransform = parseFloat(
+              slider.dataset.currentTransform || "0"
+            );
             const deltaX = e.touches[0].clientX - startX;
-            slider.style.transform = `translateX(${currentTransform + deltaX}px)`;
+            slider.style.transform = `translateX(${
+              currentTransform + deltaX
+            }px)`;
           }}
           onTouchEnd={(e) => {
             const slider = e.currentTarget;
             const startX = parseFloat(slider.dataset.startX || "0");
-            const currentTransform = parseFloat(slider.dataset.currentTransform || "0");
+            const currentTransform = parseFloat(
+              slider.dataset.currentTransform || "0"
+            );
             const deltaX = e.changedTouches[0].clientX - startX;
             const slideWidth = slider.firstElementChild?.clientWidth || 0;
+            const totalWidth = slideWidth * movies.length;
+            const visibleWidth = slider.parentElement?.clientWidth || 0;
 
             if (Math.abs(deltaX) > slideWidth / 4) {
               const direction = deltaX > 0 ? "prev" : "next";
               const newTransform =
-          direction === "prev"
-            ? Math.min(currentTransform + slideWidth, 0)
-            : currentTransform - slideWidth;
+                direction === "prev"
+                  ? Math.min(currentTransform + slideWidth, 0)
+                  : Math.max(
+                      currentTransform - slideWidth,
+                      -(totalWidth - visibleWidth)
+                    );
               slider.style.transform = `translateX(${newTransform}px)`;
             } else {
               slider.style.transform = `translateX(${currentTransform}px)`;
@@ -78,18 +94,22 @@ export const MovieSlider: React.FC<MovieSliderProps> = ({
             </div>
           ))}
         </div>
-        <button
-          className="custom-slider-prev hidden md:block absolute left-0 top-1/2 lg:h-10 lg:w-10 w-8 h-8 transform -translate-y-1/2 bg-sliderButtonPrimary  p-2 rounded-full"
-          onClick={() => handleSlide("prev")}
-        >
-          <ChevronLeft className="lg:w-6 lg:h-6 w-4 h-4" />
-        </button>
-        <button
-          className="custom-slider-next hidden md:block absolute right-0 top-1/2 lg:h-10 lg:w-10 w-8 h-8 transform -translate-y-1/2 bg-sliderButtonPrimary  p-2 rounded-full"
-          onClick={() => handleSlide("next")}
-        >
-          <ChevronRight className="lg:w-6  lg:h-6 w-4 h-4" />
-        </button>
+        {movies.length > 0 && (
+          <>
+            <button
+              className="custom-slider-prev hidden md:block absolute left-0 top-1/2 lg:h-10 lg:w-10 w-8 h-8 transform -translate-y-1/2 bg-sliderButtonPrimary  p-2 rounded-full"
+              onClick={() => handleSlide("prev")}
+            >
+              <ChevronLeft className="lg:w-6 lg:h-6 w-4 h-4" />
+            </button>
+            <button
+              className="custom-slider-next hidden md:block absolute right-0 top-1/2 lg:h-10 lg:w-10 w-8 h-8 transform -translate-y-1/2 bg-sliderButtonPrimary  p-2 rounded-full"
+              onClick={() => handleSlide("next")}
+            >
+              <ChevronRight className="lg:w-6  lg:h-6 w-4 h-4" />
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
