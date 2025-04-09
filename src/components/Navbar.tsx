@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Link, useLocation, useSearchParams } from "react-router-dom";
-import { Search, Film, Menu, X, Home, Compass } from "lucide-react";
+import { Search, Menu, X, Home, Compass, Clapperboard } from "lucide-react";
 
 export const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,7 +26,7 @@ export const Navbar: React.FC = () => {
           to="/"
           className="flex items-center gap-2 text-xl md:text-2xl font-bold transition-transform hover:scale-105"
         >
-          <Film className="md:h-8 md:w-8 h-6 w-6 text-buttonPrimary" />
+          <Clapperboard className="md:h-8 md:w-8 h-6 w-6 text-buttonPrimary" />
           <span>QFlix</span>
         </Link>
 
