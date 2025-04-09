@@ -2,6 +2,7 @@ import React from "react";
 import { HeroSection } from "../components/HeroSection";
 import { useMovies } from "../context/useMovies";
 import { MovieSlider } from "../components/MovieSlider";
+import Container from "../components/Container";
 
 export const Home: React.FC = () => {
   const { nowPlaying, loading, error, upcoming, topRated } = useMovies();
@@ -23,33 +24,35 @@ export const Home: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen">
       {nowPlaying && nowPlaying.length > 0 && (
         <HeroSection movies={nowPlaying} />
       )}
-      <div className="mx-auto max-w-7xl px-4 md:py-8">
-        {nowPlaying && nowPlaying.length > 0 && (
-          <MovieSlider
-            id="now-playing-slider"
-            title="Now Playing"
-            movies={nowPlaying}
-          />
-        )}
-        {upcoming && upcoming.length > 0 && (
-          <MovieSlider
-            id="upcoming-slider"
-            title="Upcoming Movies"
-            movies={upcoming}
-          />
-        )}
-        {topRated && topRated.length > 0 && (
-          <MovieSlider
-            id="top-rated-slider"
-            title="Top Rated"
-            movies={topRated}
-          />
-        )}
-      </div>
+      <Container>
+        <div className="mx-auto px-4 md:py-8">
+          {nowPlaying && nowPlaying.length > 0 && (
+            <MovieSlider
+              id="now-playing-slider"
+              title="Now Playing"
+              movies={nowPlaying}
+            />
+          )}
+          {upcoming && upcoming.length > 0 && (
+            <MovieSlider
+              id="upcoming-slider"
+              title="Upcoming Movies"
+              movies={upcoming}
+            />
+          )}
+          {topRated && topRated.length > 0 && (
+            <MovieSlider
+              id="top-rated-slider"
+              title="Top Rated"
+              movies={topRated}
+            />
+          )}
+        </div>
+      </Container>
     </div>
   );
 };

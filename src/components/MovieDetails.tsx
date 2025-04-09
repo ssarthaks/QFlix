@@ -32,7 +32,7 @@ export const MovieDetails: React.FC = () => {
 
   if (loading) {
     return (
-      <div className="flex h-screen items-center justify-center text-white">
+      <div className="flex h-screen items-center justify-center text-primaryText">
         Loading...
       </div>
     );
@@ -40,14 +40,14 @@ export const MovieDetails: React.FC = () => {
 
   if (!movie) {
     return (
-      <div className="flex h-screen items-center justify-center text-white">
+      <div className="flex h-screen items-center justify-center text-errorText">
         Movie not found
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white pb-12">
+    <div className="min-h-screen text-primaryText pb-12">
       <Navbar />
       <div className="relative">
         <div className="absolute inset-0">
@@ -56,7 +56,7 @@ export const MovieDetails: React.FC = () => {
             alt={movie.title}
             className="h-full w-full object-cover opacity-30"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-primaryBackground to-transparent" />
         </div>
 
         <div className="relative mx-auto max-w-7xl px-4 pt-32">
@@ -72,7 +72,7 @@ export const MovieDetails: React.FC = () => {
             <div className="w-full md:w-2/3">
               <h1 className="text-3xl font-bold md:text-4xl">{movie.title}</h1>
 
-              <div className="mt-4 flex flex-wrap gap-4 text-gray-300">
+              <div className="mt-4 flex flex-wrap gap-4 text-description">
                 <div className="flex items-center gap-2">
                   <Star className="h-5 w-5 text-yellow-400" />
                   <span>{movie.vote_average.toFixed(1)}</span>
@@ -89,7 +89,7 @@ export const MovieDetails: React.FC = () => {
                 )}
               </div>
 
-              <p className="mt-6 text-base md:text-lg leading-relaxed text-gray-300">
+              <p className="mt-6 text-base md:text-lg leading-relaxed text-description">
                 {movie.overview}
               </p>
 
@@ -100,7 +100,7 @@ export const MovieDetails: React.FC = () => {
                     {movie.genres.map((genre) => (
                       <span
                         key={genre.id}
-                        className="rounded-full bg-purple-600 px-4 py-1 text-sm"
+                        className="rounded-full bg-movieGenreBackground px-4 py-1 text-sm"
                       >
                         {genre.name}
                       </span>

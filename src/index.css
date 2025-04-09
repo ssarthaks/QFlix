@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@theme {
+    --color-primaryBackground: #101828;
+    --color-navbarBackground: #0a021a;
+    --color-hoverBackground: #172130;
+    --color-sliderButtonPrimary: #8200DB;
+    --color-filterTagsBackground: #8200DB;
+    --color-movieGenreBackground: #8200DB;
+    --color-primaryText: #ffffff;
+    --color-description: #d0d0d0;
+    --color-errorText: #e70000;
+    --color-buttonPrimary: #8200DB;
+}

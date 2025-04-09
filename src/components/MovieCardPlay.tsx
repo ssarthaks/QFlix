@@ -21,7 +21,7 @@ const MovieCardPlay: React.FC<MovieCardPlayProps> = ({
   return (
     <div
       key={movie.id}
-      className="group relative overflow-hidden rounded-lg bg-gray-800 transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl"
+      className="group relative overflow-hidden rounded-lg transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl text-primaryText"
     >
       <div className="aspect-[2/3] overflow-hidden">
         <img
@@ -34,7 +34,7 @@ const MovieCardPlay: React.FC<MovieCardPlayProps> = ({
       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
         <h3 className="text-md font-medium line-clamp-1">{movie.title}</h3>
         <div className="mt-1 flex items-center justify-between">
-          <span className="text-sm text-gray-400">
+          <span className="text-sm text-description">
             {movie.release_date.split("-")[0]}
           </span>
           <div className="flex items-center gap-1">
@@ -47,7 +47,7 @@ const MovieCardPlay: React.FC<MovieCardPlayProps> = ({
       {/* Hover Overlay */}
       <div className="absolute inset-0 flex items-center justify-center bg-black/70 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
         <Link to={`/movie/${movie.id}`}>
-          <button className="flex items-center justify-center rounded-full bg-purple-600 p-4 text-white hover:bg-purple-700">
+          <button className="flex items-center justify-center rounded-full bg-purple-600 p-4 hover:bg-purple-700">
             <Play className="h-6 w-6" />
           </button>
         </Link>

@@ -19,7 +19,7 @@ const Discover = () => {
 
   const searchQuery = searchParams.get("query") || "";
 
-  // Helper function to filter movies
+  // Function to filter movies
   const filteredMovies = combinedMovies.filter((movie) => {
     const searchPass =
       !searchQuery ||
@@ -71,7 +71,7 @@ const Discover = () => {
   };
 
   return (
-    <div className="bg-gray-900 text-white pt-26">
+    <div className="text-primaryText pt-26">
       <Container>
         <main className="container mx-auto">
           {/* Top Header and Filters */}
@@ -79,25 +79,25 @@ const Discover = () => {
             <h1 className="mb-4 text-3xl font-bold md:mb-6">Discover Movies</h1>
             <div className="flex gap-2 items-center justify-center relative">
                 <div className="relative md:hidden w-full">
-                <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+                <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-description" />
                 <input
                   type="text"
                   placeholder="Search movies..."
                   value={searchQuery}
                   onChange={handleSearchChange}
-                  className="w-full rounded-full bg-gray-800 py-3 pl-10 pr-10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full rounded-full bg-gray-800 py-3 pl-10 pr-10 placeholder-description focus:outline-none focus:ring-2 focus:ring-purple-500"
                 />
                 {searchQuery && (
                   <button
                   onClick={() => setSearchParams({ query: "" })}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-description hover:text-primaryText"
                   >
                   <X className="h-5 w-5" />
                   </button>
                 )}
                 </div>
               <button
-                className="flex items-center justify-center gap-2 rounded-lg bg-purple-600 px-4 py-2 font-medium md:hidden"
+                className="flex items-center justify-center gap-2 rounded-lg bg-filterTagsBackground px-4 py-2 font-medium md:hidden"
                 onClick={() => setIsFilterOpen(!isFilterOpen)}
               >
                 <Filter className="h-5 w-5" />
@@ -114,7 +114,7 @@ const Discover = () => {
                           setSelectedRating(e.target.value);
                           setIsFilterOpen(false);
                         }}
-                        className="rounded-lg bg-gray-700 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        className="rounded-lg bg-gray-700 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                       >
                         <option value="">All Ratings</option>
                         <option value="5">5+ Stars</option>
@@ -130,7 +130,7 @@ const Discover = () => {
                           setSelectedReleaseDate(e.target.value);
                           setIsFilterOpen(false);
                         }}
-                        className="rounded-lg bg-gray-700 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        className="rounded-lg bg-gray-700 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                       >
                         <option value="">Release Date</option>
                         <option value="release_date.desc">
@@ -147,7 +147,7 @@ const Discover = () => {
                           setSelectedDuration(e.target.value);
                           setIsFilterOpen(false);
                         }}
-                        className="rounded-lg bg-gray-700 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        className="rounded-lg bg-gray-700 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                       >
                         <option value="">All Durations</option>
                         <option value="short">Short (&lt; 90 mins)</option>
@@ -160,7 +160,7 @@ const Discover = () => {
                           setSelectedGenre(e.target.value);
                           setIsFilterOpen(false);
                         }}
-                        className="rounded-lg bg-gray-700 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        className="rounded-lg bg-gray-700 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                       >
                         <option value="">All Genres</option>
                         {genres?.map((genre) => (
@@ -196,18 +196,18 @@ const Discover = () => {
                 selectedGenre) && (
                 <div className="mt-4 flex flex-wrap gap-2 md:hidden">
                   {selectedRating && (
-                    <div className="flex items-center gap-2 rounded-full bg-purple-600 px-3 py-1 text-sm">
+                    <div className="flex items-center gap-2 rounded-full bg-filterTagsBackground px-3 py-1 text-sm">
                       <span>Rating: {selectedRating}+</span>
                       <button
                         onClick={() => setSelectedRating("")}
-                        className="text-white hover:text-gray-300"
+                        className="text-white hover:text-description"
                       >
                         <X className="h-4 w-4" />
                       </button>
                     </div>
                   )}
                   {selectedReleaseDate && (
-                    <div className="flex items-center gap-2 rounded-full bg-purple-600 px-3 py-1 text-sm">
+                    <div className="flex items-center gap-2 rounded-full bg-filterTagsBackground px-3 py-1 text-sm">
                       <span>
                         Release:{" "}
                         {selectedReleaseDate === "release_date.desc"
@@ -216,25 +216,25 @@ const Discover = () => {
                       </span>
                       <button
                         onClick={() => setSelectedReleaseDate("")}
-                        className="text-white hover:text-gray-300"
+                        className="text-white hover:text-description"
                       >
                         <X className="h-4 w-4" />
                       </button>
                     </div>
                   )}
                   {selectedDuration && (
-                    <div className="flex items-center gap-2 rounded-full bg-purple-600 px-3 py-1 text-sm">
+                    <div className="flex items-center gap-2 rounded-full bg-filterTagsBackground px-3 py-1 text-sm">
                       <span>Duration: {selectedDuration}</span>
                       <button
                         onClick={() => setSelectedDuration("")}
-                        className="text-white hover:text-gray-300"
+                        className="text-white hover:text-description"
                       >
                         <X className="h-4 w-4" />
                       </button>
                     </div>
                   )}
                   {selectedGenre && (
-                    <div className="flex items-center gap-2 rounded-full bg-purple-600 px-3 py-1 text-sm">
+                    <div className="flex items-center gap-2 rounded-full bg-filterTagsBackground px-3 py-1 text-sm">
                       <span>
                         Genre:{" "}
                         {
@@ -245,7 +245,7 @@ const Discover = () => {
                       </span>
                       <button
                         onClick={() => setSelectedGenre("")}
-                        className="text-white hover:text-gray-300"
+                        className="text-white hover:text-description"
                       >
                         <X className="h-4 w-4" />
                       </button>
@@ -262,7 +262,7 @@ const Discover = () => {
                   name="rating"
                   value={selectedRating}
                   onChange={(e) => setSelectedRating(e.target.value)}
-                  className="rounded-lg bg-gray-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="rounded-lg bg-gray-800 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                 >
                   <option value="">All Ratings</option>
                   <option value="5">5+ Stars</option>
@@ -275,7 +275,7 @@ const Discover = () => {
                   name="release_date"
                   value={selectedReleaseDate}
                   onChange={(e) => setSelectedReleaseDate(e.target.value)}
-                  className="rounded-lg bg-gray-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="rounded-lg bg-gray-800 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                 >
                   <option value="">Release Date</option>
                   <option value="release_date.desc">Newest to Oldest</option>
@@ -285,7 +285,7 @@ const Discover = () => {
                   name="time_duration"
                   value={selectedDuration}
                   onChange={(e) => setSelectedDuration(e.target.value)}
-                  className="rounded-lg bg-gray-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="rounded-lg bg-gray-800 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
                 >
                   <option value="">All Durations</option>
                   <option value="short">Short (&lt; 90 mins)</option>
@@ -295,7 +295,7 @@ const Discover = () => {
                 <select
                   value={selectedGenre}
                   onChange={(e) => setSelectedGenre(e.target.value)}
-                  className="rounded-lg bg-gray-800 px-4 py-2 text-white transition-all focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="rounded-lg bg-gray-800 px-4 py-2 transition-all focus:outline-none focus:ring-2 focus:ring-purple-500"
                 >
                   <option value="">All Genres</option>
                   {genres?.map((genre) => (
@@ -324,9 +324,9 @@ const Discover = () => {
 
           {/* Results Count */}
           <div className="flex items-center justify-between py-6">
-            <p className="text-gray-400">
+            <p className="text-description">
               Showing{" "}
-              <span className="font-medium text-white">
+              <span className="font-medium">
                 {sortedMovies.length}
               </span>{" "}
               results

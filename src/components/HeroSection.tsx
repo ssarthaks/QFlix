@@ -4,7 +4,7 @@ import type { Movie } from "../types/movie";
 import { getImageUrl } from "../lib/tmdb";
 import { Link } from "react-router-dom";
 
-// Custom classNames utility instead of cn from shadcn
+
 function classNames(...classes: (string | boolean | undefined)[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -42,7 +42,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ movies }) => {
 
   return (
     <div
-      className="relative min-h-screen w-full overflow-hidden"
+      className="relative min-h-screen w-full overflow-hidden text-primaryText"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       role="region"
@@ -73,7 +73,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ movies }) => {
       <div className="absolute inset-0 z-20 bg-gradient-to-t from-black via-black/60 to-transparent" />
 
       {/* Content */}
-      <div className="absolute bottom-0 left-0 right-0 z-30 p-8 pb-20 text-white md:p-16">
+      <div className="absolute bottom-0 left-0 right-0 z-30 p-8 pb-20  md:p-16">
         <div className="animate-fadeIn">
           <h1 className="text-3xl font-bold md:text-6xl">
             {currentMovie?.title}
@@ -84,7 +84,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ movies }) => {
           <div className="mt-8 flex flex-wrap gap-4">
             <Link to={`/movie/${currentMovie.id}`}>
               <button
-                className="flex items-center gap-2 rounded-lg bg-purple-600 md:px-6 md:py-3 px-4 py-2 font-semibold text-white transition-all hover:bg-purple-700 hover:scale-105 text-sm md:text-base"
+                className="flex items-center gap-2 rounded-lg bg-purple-600 md:px-6 md:py-3 px-4 py-2 font-semibold  transition-all hover:bg-purple-700 hover:scale-105 text-sm md:text-base"
                 aria-label="Watch now"
               >
                 <Play className="md:h-5 md:w-5 w-4 h-4" />
@@ -99,7 +99,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ movies }) => {
       <div className="absolute bottom-20 right-8 z-30 flex items-center gap-4 md:bottom-16 md:right-16">
         <button
           onClick={goToPrevious}
-          className="rounded-full bg-black/30 p-2 text-white backdrop-blur-sm transition-all hover:bg-black/50"
+          className="rounded-full bg-black/30 p-2  backdrop-blur-sm transition-all hover:bg-black/50"
           aria-label="Previous movie"
         >
           <ChevronLeft className="md:h-6 h-4 md:w-6 w-4" />
@@ -107,7 +107,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ movies }) => {
 
         <button
           onClick={() => setIsPaused(!isPaused)}
-          className="rounded-full bg-black/30 p-2 text-white backdrop-blur-sm transition-all hover:bg-black/50"
+          className="rounded-full bg-black/30 p-2  backdrop-blur-sm transition-all hover:bg-black/50"
           aria-label={isPaused ? "Resume autoplay" : "Pause autoplay"}
         >
           {isPaused ? (
@@ -119,7 +119,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ movies }) => {
 
         <button
           onClick={goToNext}
-          className="rounded-full bg-black/30 p-2 text-white backdrop-blur-sm transition-all hover:bg-black/50"
+          className="rounded-full bg-black/30 p-2  backdrop-blur-sm transition-all hover:bg-black/50"
           aria-label="Next movie"
         >
           <ChevronRight className="md:h-6 h-4 md:w-6 w-4" />
