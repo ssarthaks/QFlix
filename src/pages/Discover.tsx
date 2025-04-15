@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Filter, Search, X } from "lucide-react";
 import Container from "../components/Container";
@@ -14,12 +14,14 @@ const Discover = () => {
   const [selectedGenre, setSelectedGenre] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { genres, nowPlaying, topRated } = useMovies();
+  const { genres, nowPlaying, topRated, getMovieById } = useMovies();
   const combinedMovies = [...nowPlaying, ...topRated];
 
   const searchQuery = searchParams.get("query") || "";
 
   // Function to filter movies
+  const runtimeCache: Record<number, number> = {}; 
+
   const filteredMovies = combinedMovies.filter((movie) => {
     const searchPass =
       !searchQuery ||
@@ -28,12 +30,41 @@ const Discover = () => {
     const ratingPass =
       !selectedRating || movie.vote_average >= parseInt(selectedRating);
 
+    const [runtime, setRuntime] = useState<number | null>(null);
+
+    useEffect(() => {
+      const fetchRuntime = async () => {
+        if (runtimeCache[movie.id]) {
+          setRuntime(runtimeCache[movie.id]);
+        } else {
+          try {
+            const movieDetails = await getMovieById(movie.id);
+            runtimeCache[movie.id] = movieDetails?.runtime || 0;
+            setRuntime(movieDetails?.runtime || 0);
+          } catch (error) {
+            console.error(
+              "Failed to fetch runtime for movie:",
+              movie.id,
+              error
+            );
+          }
+        }
+      };
+
+      if (!movie.runtime) {
+        fetchRuntime();
+      } else {
+        setRuntime(movie.runtime);
+      }
+    }, [movie.id, movie.runtime]);
+
     const durationPass = (() => {
-      const runtime = movie.runtime || 0;
+      const runtimeValue = runtime || movie.runtime || 0;
       if (!selectedDuration) return true;
-      if (selectedDuration === "short") return runtime < 90;
-      if (selectedDuration === "medium") return runtime >= 90 && runtime <= 120;
-      if (selectedDuration === "long") return runtime > 120;
+      if (selectedDuration === "short") return runtimeValue < 90;
+      if (selectedDuration === "medium")
+        return runtimeValue >= 90 && runtimeValue <= 120;
+      if (selectedDuration === "long") return runtimeValue > 120;
       return true;
     })();
 
@@ -78,7 +109,7 @@ const Discover = () => {
           <div className="flex flex-col md:flex-col md:justify-between">
             <h1 className="mb-4 text-3xl font-bold md:mb-6">Discover Movies</h1>
             <div className="flex gap-2 items-center justify-center relative">
-                <div className="relative md:hidden w-full">
+              <div className="relative md:hidden w-full">
                 <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-description" />
                 <input
                   type="text"
@@ -89,13 +120,13 @@ const Discover = () => {
                 />
                 {searchQuery && (
                   <button
-                  onClick={() => setSearchParams({ query: "" })}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-description hover:text-primaryText"
+                    onClick={() => setSearchParams({ query: "" })}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-description hover:text-primaryText"
                   >
-                  <X className="h-5 w-5" />
+                    <X className="h-5 w-5" />
                   </button>
                 )}
-                </div>
+              </div>
               <button
                 className="flex items-center justify-center gap-2 rounded-lg bg-filterTagsBackground px-4 py-2 font-medium md:hidden"
                 onClick={() => setIsFilterOpen(!isFilterOpen)}
@@ -325,10 +356,7 @@ const Discover = () => {
           {/* Results Count */}
           <div className="flex items-center justify-between py-6">
             <p className="text-description">
-              Showing{" "}
-              <span className="font-medium">
-                {sortedMovies.length}
-              </span>{" "}
+              Showing <span className="font-medium">{sortedMovies.length}</span>{" "}
               results
             </p>
           </div>
